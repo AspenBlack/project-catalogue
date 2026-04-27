@@ -2,14 +2,17 @@
 
 # Generated files
 data/projects.json
+data/index.md
+data/projects-index.md
 data/*.lock
 config/scan_config.yaml
 .mkdocs-serve.pid
 
 # MkDocs build output
 mkdocs/site/
+mkdocs/docs/index.md
+mkdocs/docs/projects/index.md
 mkdocs/docs/projects/**/*.md
-!mkdocs/docs/projects/index.md
 
 # Python
 __pycache__/

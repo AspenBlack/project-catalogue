@@ -119,7 +119,7 @@ def generate_project_page(project: dict) -> str:
     return "\n".join(lines)
 
 
-def generate_landing_page(projects: list, docs_path: Path) -> None:
+def generate_landing_page(projects: list, docs_path: Path, data_path: Path) -> None:
     """Generate single consolidated landing page with linked project rows."""
     categories = defaultdict(int)
     types = defaultdict(int)
@@ -200,13 +200,20 @@ def generate_landing_page(projects: list, docs_path: Path) -> None:
 
     lines.extend(["", "---", "", f"*Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*", ""])
 
+    landing_content = "\n".join(lines)
+
+    data_path.mkdir(parents=True, exist_ok=True)
+    data_index_path = data_path / 'index.md'
+    with open(data_index_path, 'w', encoding='utf-8') as f:
+        f.write(landing_content)
+
     index_path = docs_path / 'index.md'
     with open(index_path, 'w', encoding='utf-8') as f:
-        f.write("\n".join(lines))
+        f.write(landing_content)
     print("  ✓ docs/index.md")
 
 
-def generate_projects_index(projects: list, projects_dir: Path) -> None:
+def generate_projects_index(projects: list, projects_dir: Path, data_path: Path) -> None:
     """Generate projects/index.md grouped by category."""
     content = ["# All Projects", ""]
 
@@ -221,17 +228,25 @@ def generate_projects_index(projects: list, projects_dir: Path) -> None:
             content.append(f"- [{proj['name']}]({proj['id']}.md) - `{proj['type']}`")
         content.append("")
 
+    projects_index_content = "\n".join(content) + "\n"
+
+    data_path.mkdir(parents=True, exist_ok=True)
+    with open(data_path / 'projects-index.md', 'w', encoding='utf-8') as f:
+        f.write(projects_index_content)
+
     with open(projects_dir / 'index.md', 'w', encoding='utf-8') as f:
-        f.write("\n".join(content) + "\n")
+        f.write(projects_index_content)
     print("  ✓ projects/index.md")
 
 
-def main(projects_json_path: Path = None, docs_path: Path = None):
+def main(projects_json_path: Path = None, docs_path: Path = None, data_path: Path = None):
     """Generate all docs pages."""
     if projects_json_path is None:
         projects_json_path = Path(__file__).parent.parent / 'data' / 'projects.json'
     if docs_path is None:
         docs_path = Path(__file__).parent / 'docs'
+    if data_path is None:
+        data_path = Path(__file__).parent.parent / 'data'
 
     projects = load_projects_json(projects_json_path)
 
@@ -252,8 +267,8 @@ def main(projects_json_path: Path = None, docs_path: Path = None):
             f.write(content)
         print(f"  ✓ {page_name}")
 
-    generate_projects_index(projects, projects_dir)
-    generate_landing_page(projects, docs_path)
+    generate_projects_index(projects, projects_dir, data_path)
+    generate_landing_page(projects, docs_path, data_path)
 
     print(f"\n✓ Generated documentation for {len(projects)} project(s)")
 

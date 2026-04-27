@@ -221,6 +221,26 @@ def cmd_clean(_: argparse.Namespace) -> None:
                 md.unlink()
         print("[OK] Removed generated project markdown files")
 
+    docs_index = MKDOCS_DIR / "docs" / "index.md"
+    if docs_index.exists():
+        docs_index.unlink()
+        print(f"[OK] Removed generated landing page {docs_index}")
+
+    projects_index = MKDOCS_DIR / "docs" / "projects" / "index.md"
+    if projects_index.exists():
+        projects_index.unlink()
+        print(f"[OK] Removed generated projects index {projects_index}")
+
+    data_landing = ROOT / "data" / "index.md"
+    if data_landing.exists():
+        data_landing.unlink()
+        print(f"[OK] Removed generated data landing page {data_landing}")
+
+    data_projects_index = ROOT / "data" / "projects-index.md"
+    if data_projects_index.exists():
+        data_projects_index.unlink()
+        print(f"[OK] Removed generated data projects index {data_projects_index}")
+
     print("Clean complete.")
 
 
