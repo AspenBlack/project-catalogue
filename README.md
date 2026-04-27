@@ -1,4 +1,7 @@
 ﻿# Project Catalogue
+GitCopilot Generated
+MIT License 
+
 Local project index + docs generator for private and public codebases.
 
 ## Quick Start
