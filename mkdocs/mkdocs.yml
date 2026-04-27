@@ -1,0 +1,25 @@
+site_name: "Project Catalogue"
+site_description: "Local project index and documentation"
+theme:
+  name: material
+  palette:
+    - scheme: light
+      primary: blue
+      accent: blue
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - search.suggest
+    - search.highlight
+
+plugins:
+  - search
+  - awesome-pages
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - tables
+  - attr_list
+  - md_in_html

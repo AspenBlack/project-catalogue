@@ -1,0 +1,42 @@
+# Project Catalogue - .gitignore
+
+# Generated files
+data/projects.json
+data/*.lock
+config/scan_config.yaml
+.mkdocs-serve.pid
+
+# MkDocs build output
+mkdocs/site/
+mkdocs/docs/projects/**/*.md
+!mkdocs/docs/projects/index.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local development
+.pytest_cache/
+.coverage
+*.egg-info/
+dist/
+build/
